@@ -1,7 +1,6 @@
 <?php
 
-echo "vai!";
-echo "vai de novo";
+echo phpversion();
  
 
 ?>
