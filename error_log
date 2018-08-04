@@ -1,0 +1,24 @@
+[04-Aug-2018 16:22:19 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function setTpl() in /home/bmend546/projetos/ecommphp7/index.php:16
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Router.php(200): call_user_func_array(Object(Closure), Array)
+#2 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Slim.php(1210): Slim\Router->dispatch(Object(Slim\Route))
+#3 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Middleware/Flash.php(86): Slim\Slim->call()
+#4 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Middleware/MethodOverride.php(94): Slim\Middleware\Flash->call()
+#5 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#6 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Slim.php(1159): Slim\Middleware\PrettyExceptions->call()
+#7 /home/bmend546/projetos/ecommphp7/index.php(20): Slim\Slim->run()
+#8 {main}
+
+Next Error: Call to undefined function Hcode\draw() in /home/bmend546/projeto in /home/bmend546/projetos/ecommphp7/vendor/hcodebr/php-classes/src/Page.php on line 49
+[04-Aug-2018 16:23:50 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function Hcode\draw() in /home/bmend546/projetos/ecommphp7/vendor/hcodebr/php-classes/src/Page.php:49
+Stack trace:
+#0 /home/bmend546/projetos/ecommphp7/index.php(18): Hcode\Page->__destruct()
+#1 [internal function]: {closure}()
+#2 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Router.php(200): call_user_func_array(Object(Closure), Array)
+#3 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Slim.php(1210): Slim\Router->dispatch(Object(Slim\Route))
+#4 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Middleware/Flash.php(86): Slim\Slim->call()
+#5 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Middleware/MethodOverride.php(94): Slim\Middleware\Flash->call()
+#6 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Middleware/PrettyExceptions.php(67): Slim\Middleware\MethodOverride->call()
+#7 /home/bmend546/projetos/ecommphp7/vendor/slim/slim/Slim/Slim.php(1159): Slim\Middleware\PrettyExceptions->call()
+#8 /home/bmend546/projetos/ecommphp7/index.php in /home/bmend546/projetos/ecommphp7/vendor/hcodebr/php-classes/src/Page.php on line 49
