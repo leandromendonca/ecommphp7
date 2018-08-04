@@ -3,3 +3,20 @@ AddHandler application/x-httpd-php-edge .php
 <IfModule mod_suphp.c>
     suPHP_ConfigPath /opt/phpedge/lib
 </IfModule>
+
+# Rewrite Rules
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Protege arquivos de configuração
+<FilesMatch "\.(log|txt|json|ini)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+
