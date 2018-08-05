@@ -9,6 +9,11 @@ class User extends Model
 {
     const SESSION = "User";
 
+/*
+* Métodos de login
+*/
+
+    // Executa o login
     public static function login($login, $password)
     {
         $sql = new Sql();
@@ -38,6 +43,7 @@ class User extends Model
         }
     }
 
+    // Verifica o login
     public static function verifyLogin($inadmin = true)
     {
         if (
@@ -54,10 +60,90 @@ class User extends Model
         }
     }
 
+    // Executa o logout
     public static function logout()
     {
         $_SESSION[User::SESSION] = NULL;
     }
+
+/*
+* Métodos de adminsitração de usuários
+*/
+
+    // lista todos os usuários
+    public static function listAll()
+    {
+        $sql = new Sql();
+
+        return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) ORDER BY b.desperson");
+    }
+
+    // salva um usuário
+    public function save()
+    {
+        $sql = new Sql();
+
+        /*
+        pdesperson VARCHAR(64), 
+        pdeslogin VARCHAR(64), 
+        pdespassword VARCHAR(256), 
+        pdesemail VARCHAR(128), 
+        pnrphone BIGINT, 
+        pinadmin TINYINT
+        */
+
+        $results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
+            ":desperson"=>$this->getdesperson(),
+            ":deslogin"=>$this->getdeslogin(),
+            ":despassword"=>$this->getdespassword(),
+            ":desemail"=>$this->getdesemail(),
+            ":nrphone"=>$this->getnrphone(),
+            ":inadmin"=>$this->getinadmin()
+        ));
+
+        $this->setData($results[0]);
+    }
+
+    // pega os dados de um usuário
+    public function get($iduser)
+    {
+        $sql = new Sql();
+
+        $results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) WHERE a.iduser = :iduser", array(
+            ":iduser"=>$iduser
+        ));
+
+        $this->setData($results[0]);
+    }
+
+    // atualiza os dados de um usuário
+    public function update()
+    {
+        $sql = new Sql();
+
+        $results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
+            ":iduser"=>$this->getiduser(),
+            ":desperson"=>$this->getdesperson(),
+            ":deslogin"=>$this->getdeslogin(),
+            ":despassword"=>$this->getdespassword(),
+            ":desemail"=>$this->getdesemail(),
+            ":nrphone"=>$this->getnrphone(),
+            ":inadmin"=>$this->getinadmin()
+        ));
+
+        $this->setData($results[0]);
+    }
+
+    // apaga um usuário
+    public function delete()
+    {
+        $sql = new Sql();
+
+        $sql->query("CALL sp_users_delete(:iduser)", array(
+            ":iduser"=>$this->getiduser()
+        ));
+    }
+
 }
 
 ?>
