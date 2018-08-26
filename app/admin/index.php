@@ -26,6 +26,10 @@ switch ($uri[1]) {
         require_once("login.php");
         break;
     
+    case 'products':
+        require_once("products.php");
+        break;
+    
     case 'users':
         require_once("users.php");
         break;

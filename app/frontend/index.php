@@ -3,20 +3,19 @@
 /*************
 * FRONTEND
 *************/
+$uri = explode('?', substr($_SERVER['REQUEST_URI'], 1));
+$uri = explode('/', $uri[0]);
 
-use \Slim\Slim;
-use \Hcode\Page;
-use \Hcode\PageAdmin;
-use \Hcode\Model\User;
-
-// Home
-$app->config('debug', true);
-
-$app->get('/', function()
-{
-    $page = new Page();
-
-    $page->setTpl("home");
-});
+// Escolhe qual rota seguir
+switch ($uri[0]) {
+    case '':
+        require_once("home.php");
+        break;
+    
+    case 'category':
+        require_once("categories.php");
+        break;
+        
+}
 
 ?>
