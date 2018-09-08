@@ -3,7 +3,7 @@
 // Inicializa a sessão do usuário
 session_start();
 
-// Carrega autoloadres das classes
+// Carrega autoloaders das classes
 require_once("vendor" . DIRECTORY_SEPARATOR . "autoload.php");
 
 // Carrega biblioteca de funções

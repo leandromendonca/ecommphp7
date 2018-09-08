@@ -1,8 +1,20 @@
 <?php
 
-function formatPrice(float $vlprice)
+function formatNumber(float $value)
 {
-	return "R$" . number_format($vlprice, 2, ",", ".");
+	return number_format($vlnumber, 2, ",", ".");
+}
+
+function formatPrice(float $value)
+{
+	return "R$" . number_format($value, 2, ",", ".");
+}
+
+function formatValueToDecimal($value)
+{
+	$value = str_replace('.', '', $value);
+
+	return (float)str_replace(',', '.', $value);
 }
 
 ?>

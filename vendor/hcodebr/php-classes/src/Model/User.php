@@ -16,9 +16,9 @@ class User extends Model
     const SECRET = "Recovery_Hcode_Sample";
     const METHOD = 'AES-256-CBC';
 
-/*
-* Métodos de login
-*/
+    /*
+    * Métodos de login
+    */
 
     // Executa o login
     public static function login($login, $password)
@@ -45,13 +45,25 @@ class User extends Model
             $_SESSION[User::SESSION] = $user->getValues();
 
             return $user;
-        } else {
+        }
+        else
+        {
             throw new \Exception("Usuário inexistente ou senha inválida.");
         }
     }
 
-    // Verifica o login
+    // Verifica se o usuário não está logado e manda para o login no admin
     public static function verifyLogin($inadmin = true)
+    {
+        if (User::checkLogin($inadmin))
+        {
+            header("Location: /admin/login");
+            exit;
+        }
+    }
+
+    // Verifica o login no frontend
+    public static function checkLogin($inadmin = true)
     {
         if (
             !isset($_SESSION[User::SESSION])
@@ -59,11 +71,24 @@ class User extends Model
             !$_SESSION[User::SESSION]
             ||
             !(int)$_SESSION[User::SESSION]["iduser"] > 0
-            ||
-            (bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin
         ) {
-            header("Location: /admin/login");
-            exit;
+            // não está logado
+            return false;
+        }
+        else
+        {
+            if (($inadmin === true) && (bool)$_SESSION[User::SESSION]['idadmin'] === true)
+            {
+                return true;
+            }
+            else if ($inadmin === false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -73,9 +98,9 @@ class User extends Model
         $_SESSION[User::SESSION] = NULL;
     }
 
-/*
-* Métodos de administração de usuários
-*/
+    /*
+    * Métodos de administração de usuários
+    */
 
     // lista todos os usuários
     public static function listAll()
@@ -151,7 +176,7 @@ class User extends Model
         ));
     }
 
-    // 
+    // Pega token de recuperação de senha associado ao endereço de e-mail
     public static function getForgot($email)
     {
         $sql = new Sql;
@@ -202,6 +227,7 @@ class User extends Model
         }
     }
 
+    // Valida o token de recuperação de senha
     public static function validForgotDecrypt($code)
     {
         $idrecovery = parent::decrypt($code, hash('sha256', User::SECRET), User::METHOD);
@@ -233,6 +259,7 @@ class User extends Model
         }
     }
 
+    // Marca o token como usado
     public static function setForgotUsed($idrecovery)
     {
         $sql = new Sql();
@@ -242,6 +269,7 @@ class User extends Model
         ));
     }
 
+    // Grava a nova senha do usuário
     public function setPassword($password)
     {
         $sql = new Sql();
@@ -250,6 +278,19 @@ class User extends Model
             ":password"=>$password,
             ":iduser"=>$this->getiduser()
         ));
+    }
+
+    // Pega o ID do usuário a partir da sessão ativa
+    public static function getFromSession()
+    {
+        $user = new User();
+
+        if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]['iduser'] > 0)
+        {
+            $user->setData($_SESSION[User::SESSION]);
+        }
+
+        return $user;
     }
 
 }

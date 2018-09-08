@@ -16,6 +16,14 @@ switch ($uri[0]) {
         require_once("categories.php");
         break;
         
+    case 'product':
+        require_once("products.php");
+        break;
+        
+    case 'cart':
+        require_once("cart.php");
+        break;
+        
 }
 
 ?>
