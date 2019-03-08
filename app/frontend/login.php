@@ -13,7 +13,8 @@ $app->get('/login', function()
     $page = new Page();
 
     $page->setTpl("login", [
-    	'error'=>User::getError()
+    	'error'=>User::getError(),
+    	'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : []
     ]);
 });
 

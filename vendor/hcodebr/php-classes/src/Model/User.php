@@ -101,6 +101,18 @@ class User extends Model
         }
     }
 
+    // Verifica se o login já existe
+    public static function checkLoginExist($login)
+    {
+        $sql = new sql();
+
+        $results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :deslogin", [
+            ':deslogin'=>$login
+        ]);
+
+        return (count($results) > 0);
+    }
+
     // Executa o logout
     public static function logout()
     {
@@ -136,7 +148,7 @@ class User extends Model
         $results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
             ":desperson"=>$this->getdesperson(),
             ":deslogin"=>$this->getdeslogin(),
-            ":despassword"=>$this->getdespassword(),
+            ":despassword"=>User::getPasswordHash($this->getdespassword()),
             ":desemail"=>$this->getdesemail(),
             ":nrphone"=>$this->getnrphone(),
             ":inadmin"=>$this->getinadmin()
@@ -166,7 +178,7 @@ class User extends Model
             ":iduser"=>$this->getiduser(),
             ":desperson"=>$this->getdesperson(),
             ":deslogin"=>$this->getdeslogin(),
-            ":despassword"=>$this->getdespassword(),
+            ":despassword"=>User::getPasswordHash($this->getdespassword()),
             ":desemail"=>$this->getdesemail(),
             ":nrphone"=>$this->getnrphone(),
             ":inadmin"=>$this->getinadmin()
@@ -287,6 +299,14 @@ class User extends Model
             ":password"=>$password,
             ":iduser"=>$this->getiduser()
         ));
+    }
+
+    // Criptografa a senha
+    public static function getPasswordHash($password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT, [
+            "cost"=>12
+        ]);
     }
 
     // Pega o ID do usuário a partir da sessão ativa

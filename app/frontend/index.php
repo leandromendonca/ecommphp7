@@ -12,16 +12,12 @@ switch ($uri[0]) {
         require_once("home.php");
         break;
     
-    case 'category':
-        require_once("categories.php");
-        break;
-        
-    case 'product':
-        require_once("products.php");
-        break;
-        
     case 'cart':
         require_once("cart.php");
+        break;
+        
+    case 'category':
+        require_once("categories.php");
         break;
         
     case 'checkout':
@@ -33,6 +29,15 @@ switch ($uri[0]) {
         require_once("login.php");
         break;
     
+    case 'product':
+        require_once("products.php");
+        break;
+        
+    case 'profile':
+    case 'register':
+        require_once("profile.php");
+        break;
+        
 }
 
 ?>
