@@ -2,7 +2,7 @@
 
 function formatNumber(float $value)
 {
-	return number_format($vlnumber, 2, ",", ".");
+	return number_format($value, 2, ",", ".");
 }
 
 function formatPrice(float $value)

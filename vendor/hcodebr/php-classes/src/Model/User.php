@@ -55,9 +55,16 @@ class User extends Model
     // Verifica se o usuário não está logado e manda para o login no admin
     public static function verifyLogin($inadmin = true)
     {
-        if (User::checkLogin($inadmin))
+        if (!User::checkLogin($inadmin))
         {
-            header("Location: /admin/login");
+            if ($inadmin)
+            {
+                header("Location: /admin/login");
+            }
+            else
+            {
+                header("Location: /login");
+            }
             exit;
         }
     }

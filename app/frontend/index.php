@@ -24,6 +24,15 @@ switch ($uri[0]) {
         require_once("cart.php");
         break;
         
+    case 'checkout':
+        require_once("checkout.php");
+        break;
+        
+    case 'login':
+    case 'logout':
+        require_once("login.php");
+        break;
+    
 }
 
 ?>

@@ -8,7 +8,7 @@ use \Hcode\Page;
 use \Hcode\Model\Cart;
 use \Hcode\Model\Product;
 
-// Home
+// Página do carrinho
 $app->get('/cart', function()
 {
 	$cart = Cart::getFromSession();
@@ -23,6 +23,7 @@ $app->get('/cart', function()
     ]);
 });
 
+// Adiciona uma unidade do produto ao carrinho
 $app->get('/cart/:idproduct/add', function($idproduct)
 {
 	$product = new Product();
@@ -42,6 +43,7 @@ $app->get('/cart/:idproduct/add', function($idproduct)
 	exit;
 });
 
+// Remove uma unidade do produto ao carrinho
 $app->get('/cart/:idproduct/minus', function($idproduct)
 {
 	$product = new Product();
@@ -56,6 +58,7 @@ $app->get('/cart/:idproduct/minus', function($idproduct)
 	exit;
 });
 
+// Remove o produto do carrinho
 $app->get('/cart/:idproduct/remove', function($idproduct)
 {
 	$product = new Product();
@@ -70,6 +73,7 @@ $app->get('/cart/:idproduct/remove', function($idproduct)
 	exit;
 });
 
+// Calcula o frete de acordo com o CEP
 $app->post('/cart/freight', function()
 {
 	$cart = Cart::getFromSession();
@@ -79,4 +83,5 @@ $app->post('/cart/freight', function()
 	header("Location: /cart");
 	exit;
 });
+
 ?>
