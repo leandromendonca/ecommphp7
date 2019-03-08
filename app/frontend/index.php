@@ -26,6 +26,7 @@ switch ($uri[0]) {
         
     case 'login':
     case 'logout':
+    case 'forgot':
         require_once("login.php");
         break;
     

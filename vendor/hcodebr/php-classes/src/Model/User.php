@@ -198,7 +198,7 @@ class User extends Model
     }
 
     // Pega token de recuperação de senha associado ao endereço de e-mail
-    public static function getForgot($email)
+    public static function getForgot($email, $inadmin = true)
     {
         $sql = new Sql;
 
@@ -234,7 +234,14 @@ class User extends Model
 
                 $code = parent::encrypt($dataRecovery["idrecovery"], hash('sha256', User::SECRET), User::METHOD);
 
-                $link = (isset($_SERVER["HTTPS"]) ? "https://" : "http://") . $_SERVER["SERVER_NAME"] . "/admin/forgot/reset?code=$code";
+                if ($inadmin === true)
+                {
+                    $link = (isset($_SERVER["HTTPS"]) ? "https://" : "http://") . $_SERVER["SERVER_NAME"] . "/admin/forgot/reset?code=$code";
+                }
+                else
+                {
+                    $link = (isset($_SERVER["HTTPS"]) ? "https://" : "http://") . $_SERVER["SERVER_NAME"] . "/forgot/reset?code=$code";
+                }
 
                 $mailer = new Mailer($data["desemail"], $data["desperson"], "Redefinir a senha da Hcode Store.", "forgot", array(
                     "name"=>$data["desperson"],

@@ -45,7 +45,6 @@ $app->post("/register", function(){
 		exit;
 	}
 
-
 	$user = new User();
 
 	$user->setData([
