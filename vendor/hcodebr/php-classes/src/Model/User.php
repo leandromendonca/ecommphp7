@@ -15,6 +15,8 @@ class User extends Model
     const SESSION = "User";
     const SECRET = "Recovery_Hcode_Sample";
     const METHOD = 'AES-256-CBC';
+    const ERROR = "UserError";
+    const ERROR_REGISTER = "UserErrorRegister";
 
     /*
     * Métodos de login
@@ -80,11 +82,11 @@ class User extends Model
             !(int)$_SESSION[User::SESSION]["iduser"] > 0
         ) {
             // não está logado
-            return false;
+           return false;
         }
         else
         {
-            if (($inadmin === true) && (bool)$_SESSION[User::SESSION]['idadmin'] === true)
+            if (($inadmin === true) && (bool)$_SESSION[User::SESSION]['inadmin'] = "1")
             {
                 return true;
             }
@@ -94,7 +96,7 @@ class User extends Model
             }
             else
             {
-                return false;
+                 return false;
             }
         }
     }
@@ -298,6 +300,40 @@ class User extends Model
         }
 
         return $user;
+    }
+
+    // Pega o nome do usuário
+    public static function getUserName()
+    {
+        $iduser = User::getFromSession()->getiduser();
+
+        $user = new User();
+
+        $user->get((int)$iduser);
+
+        return $user->getdesperson();
+    }
+
+    // Grava mensagem de erro
+    public static function setError($msg)
+    {
+        $_SESSION[User::ERROR] = $msg;
+    }
+
+    // Pega mensagem de erro
+    public static function getError()
+    {
+        $msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
+
+        User::clearError();
+
+        return $msg;
+    }
+
+    // Limpa mensagem de erro
+    public static function clearError()
+    {
+        $_SESSION[User::ERROR] = NULL;
     }
 
 }

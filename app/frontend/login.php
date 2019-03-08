@@ -12,13 +12,22 @@ $app->get('/login', function()
 {
     $page = new Page();
 
-    $page->setTpl("login");
+    $page->setTpl("login", [
+    	'error'=>User::getError()
+    ]);
 });
 
 // Recebe dados do login
 $app->post('/login', function()
 {
-    User::login($_POST["login"], $_POST["password"]);
+	try
+	{
+	    User::login($_POST["login"], $_POST["password"]);
+	}
+	catch(Exception $e)
+	{
+		User::setError($e->getMessage());
+	}
 
     header("Location: /checkout");
     exit;
