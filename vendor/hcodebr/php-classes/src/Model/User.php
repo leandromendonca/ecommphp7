@@ -17,6 +17,7 @@ class User extends Model
     const METHOD = 'AES-256-CBC';
     const ERROR = "UserError";
     const ERROR_REGISTER = "UserErrorRegister";
+    const SUCCESS = "UserSuccess";
 
     /*
     * Métodos de login
@@ -361,6 +362,28 @@ class User extends Model
     public static function clearError()
     {
         $_SESSION[User::ERROR] = NULL;
+    }
+
+    // Grava mensagem de sucesso
+    public static function setSuccess($msg)
+    {
+        $_SESSION[User::SUCCESS] = $msg;
+    }
+
+    // Pega mensagem de sucesso
+    public static function getSuccess()
+    {
+        $msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+        User::clearSuccess();
+
+        return $msg;
+    }
+
+    // Limpa mensagem de sucesso
+    public static function clearSuccess()
+    {
+        $_SESSION[User::SUCCESS] = NULL;
     }
 
 }
