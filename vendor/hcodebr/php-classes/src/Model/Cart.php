@@ -240,6 +240,7 @@ class Cart extends Model
         }
     }
 
+    // Atualiza o frete
     public function updateFreight()
     {
         if ($this->getdeszipcode() != '')
@@ -248,11 +249,13 @@ class Cart extends Model
         }
     }
 
+    // Acerta a mensagem de erro
     public static function setMsgError($msg)
     {
         $_SESSION[Cart::SESSION_ERROR] = $msg;
     }
 
+    // Pega a mensagem de erro
     public static function getMsgError()
     {
         $msg = (isset($_SESSION[Cart::SESSION_ERROR])) ? $_SESSION[Cart::SESSION_ERROR] : "";
@@ -262,6 +265,7 @@ class Cart extends Model
         return $msg;
     }
 
+    // Limpa a mensagem de erro
     public static function clearMsgError()
     {
         $_SESSION[Cart::SESSION_ERROR] = NULL;
