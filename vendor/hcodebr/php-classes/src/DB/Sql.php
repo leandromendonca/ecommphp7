@@ -9,9 +9,9 @@ namespace Hcode\DB;
 class Sql {
 
 	const HOSTNAME = "localhost";
-	const USERNAME = "bmend546_ecphp7";
-	const PASSWORD = "clatjgll4rc8";
-	const DBNAME = "bmend546_ecphp7";
+	const USERNAME = "uuuuuuuuuuu";
+	const PASSWORD = "zzzzzzzzzzzzzz";
+	const DBNAME = "dddddddddddd";
 
 	private $conn;
 
